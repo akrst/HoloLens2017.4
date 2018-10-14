@@ -27,7 +27,7 @@ public class ChangeShaderFromInspector : MonoBehaviour {
     public static void changeShader(GameObject targetGameObject, Texture texture, float mainTextureScaleX, float mainTextureScaleY, string ShaderName_to, string ShaderName_from = "")
     {
         //List<GameObject> ret = new List<GameObject>();
-		// Transform t にターゲットゲームオブジェクトの子オブジェクト軍のTransform入れる 
+		// Transform t にターゲットゲームオブジェクトの子オブジェクト郡のTransform入れる 
         foreach (Transform t in targetGameObject.GetComponentsInChildren<Transform>(true)) //include inactive gameobjects
         {
             // tのレンダラーが null でないとき
