@@ -7,12 +7,14 @@ public class ChangeShaderFromInspector : MonoBehaviour {
 	public string ShaderName_to;
 	public string ShaderName_from;
 	public Texture texture;
+	public float mainTextureScaleX;
+	public float mainTextureScaleY;
 	
 	[ContextMenu("ChangeStart")]
 	void ChangeStart(){
         for (int i = 0; i < targetGameObjects.Length; i++) {
 		GameObject targetGameObject = targetGameObjects[i];
-		changeShader(targetGameObject, texture, ShaderName_to);
+		changeShader(targetGameObject, texture, mainTextureScaleX, mainTextureScaleY, ShaderName_to);
 		}
 	}
 
@@ -22,7 +24,7 @@ public class ChangeShaderFromInspector : MonoBehaviour {
     /// <param name="targetGameObject">対象GameObject。子要素も変更されます。</param>
     /// <param name="ShaderName_from">変更後のShader名</param>
     /// <param name="ShaderName_to">対象Shader名。未設定時は全てのShaderを変更</param>
-    public static void changeShader(GameObject targetGameObject, Texture texture, string ShaderName_to, string ShaderName_from = "")
+    public static void changeShader(GameObject targetGameObject, Texture texture, float mainTextureScaleX, float mainTextureScaleY, string ShaderName_to, string ShaderName_from = "")
     {
         //List<GameObject> ret = new List<GameObject>();
 		// Transform t にターゲットゲームオブジェクトの子オブジェクト軍のTransform入れる 
@@ -44,6 +46,7 @@ public class ChangeShaderFromInspector : MonoBehaviour {
 						// materialのshader に 引数に指定した名前からシェーダーを検索して代入
                         material.shader = Shader.Find(ShaderName_to);
 						material.SetTexture("_MainTex", texture);
+	                    material.mainTextureScale = new Vector2(mainTextureScaleX, mainTextureScaleY);
                     }
                     else
                     {	
@@ -51,8 +54,9 @@ public class ChangeShaderFromInspector : MonoBehaviour {
                         if (material.shader.name == ShaderName_from)
                         {
 							// materialのshader に 引数に指定した名前からシェーダーを検索して代入
-                            material.shader = Shader.Find(ShaderName_to);
+                           material.shader = Shader.Find(ShaderName_to);
 							material.SetTexture("_MainTex", texture);
+	                       material.mainTextureScale = new Vector2(mainTextureScaleX, mainTextureScaleY);
                         }
                     }
                 }
