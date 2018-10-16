@@ -1,4 +1,4 @@
-﻿Shader "ShaderSketches/TexDistance001"{
+﻿Shader "ShaderSketches/TexDistance004"{
     Properties{
         _MainTex("MainTex", 2D) = "white"{}    
     }
@@ -8,8 +8,8 @@
 
     sampler2D _MainTex;   
     float4 frag(v2f_img i) : SV_Target{
-        float d = abs(tan(i.uv *3.0));
-        d = step(d, abs(tan(d * 8 - _Time.w * 1))) ;
+        float d = abs(atan(i.uv));
+        d = ddx(tan(d * 8 - _Time.y * 1));
         float4 col = tex2D(_MainTex, d);
         return col;
     } 

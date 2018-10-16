@@ -1,17 +1,16 @@
-﻿Shader "ShaderSketches/TexDistance001"{
+﻿Shader "ShaderSketches/DistanceField002"{
     Properties{
         _MainTex("MainTex", 2D) = "white"{}    
     }
     
     CGINCLUDE
-    #include "UnityCG.cginc"      
-
-    sampler2D _MainTex;   
+    #include "UnityCG.cginc" 
+    // 自身の座標から中心の座標までのディスタンスフィールドを作る
     float4 frag(v2f_img i) : SV_Target{
-        float d = abs(tan(i.uv *3.0));
-        d = step(d, abs(tan(d * 8 - _Time.w * 1))) ;
-        float4 col = tex2D(_MainTex, d);
-        return col;
+        float d = distance(float2(0.5, 0.5), i.uv);
+        float a = cos(d * 8 - _Time.y * 5) ;
+        d = step(a, d);
+        return d;
     } 
     ENDCG
     
